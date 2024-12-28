@@ -4,6 +4,25 @@ import { Request, Response } from 'express';
 export const getData = async (req: Request, res: Response): Promise<void> => {
     console.log('Fetching GitHub data...');
     try {
+        const authHeader = req.headers.authorization;
+
+        if (!authHeader || !authHeader.startsWith('Basic ')) {
+            res.status(401).json({ message: 'Unauthorized: Missing or invalid Authorization header' });
+            return;
+        }
+
+        const base64Credentials = authHeader.split(' ')[1];
+        const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
+        const [providedUsername, providedPassword] = credentials.split(':');
+
+        const expectedUsername = 'nagendra'; 
+        const expectedPassword = 'yakkaladevara'; 
+
+        if (providedUsername !== expectedUsername || providedPassword !== expectedPassword) {
+            res.status(401).json({ message: 'Unauthorized: Invalid username or password' });
+            return;
+        }
+
         const { username } = req.params;
 
         if (!username) {
@@ -56,4 +75,3 @@ export const getData = async (req: Request, res: Response): Promise<void> => {
         res.status(500).json({ message: error.message });
     }
 };
-
