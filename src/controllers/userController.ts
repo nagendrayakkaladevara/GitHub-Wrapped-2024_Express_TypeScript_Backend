@@ -30,8 +30,6 @@ export const getData = async (req: Request, res: Response): Promise<void> => {
             return createdYear === 2024;
         });
 
-        console.log(`Number of repositories created in 2024: ${reposCreatedIn2024.length}`);
-
         const {
             longestStreak,
             topLanguages,
@@ -39,6 +37,7 @@ export const getData = async (req: Request, res: Response): Promise<void> => {
             mostActiveDay,
             mostActiveMonth,
             totalCommits,
+            calendarData
         } = githubData;
 
         res.status(200).json({
@@ -50,6 +49,7 @@ export const getData = async (req: Request, res: Response): Promise<void> => {
             mostActiveMonth,
             totalCommits,
             reposCreatedIn2024Count: reposCreatedIn2024.length,
+            contributions: calendarData
         });
     } catch (error: any) {
         console.error(error);
