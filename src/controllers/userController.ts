@@ -46,7 +46,7 @@ export const getData = async (req: Request, res: Response): Promise<void> => {
 
         const reposCreatedIn2024 = gitRepoData.filter((repo: any) => {
             const createdYear = new Date(repo.created_at).getFullYear();
-            return createdYear === 2024;
+            return createdYear === 2025;
         });
 
         const {
