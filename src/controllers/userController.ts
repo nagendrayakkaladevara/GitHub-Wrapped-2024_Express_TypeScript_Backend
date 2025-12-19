@@ -56,7 +56,8 @@ export const getData = async (req: Request, res: Response): Promise<void> => {
             mostActiveDay,
             mostActiveMonth,
             totalCommits,
-            calendarData
+            calendarData,
+commitRank
         } = githubData;
 
         res.status(200).json({
@@ -67,6 +68,7 @@ export const getData = async (req: Request, res: Response): Promise<void> => {
             mostActiveDay,
             mostActiveMonth,
             totalCommits,
+commitRank,
             reposCreatedIn2024Count: reposCreatedIn2024.length,
             contributions: calendarData
         });
